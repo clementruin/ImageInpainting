@@ -104,7 +104,12 @@ ys = np.random.choice(range_y, X_all.shape[0])
 hs = np.random.choice(range_h, X_all.shape[0])
 ws = np.random.choice(range_w, X_all.shape[0])
 
-for img, x, y, h, w in zip(X_all, xs, ys, hs, ws):
+
+#Gaussian mask
+xg = np.random.normal(16,10,X_all.shape[0]) #get the upper left corner
+yg = np.random.normal(48,10,X_all.shape[0])
+
+for img, x, y, h, w in zip(X_all, xg.astype(int), yg.astype(int), hs, ws):
     mask(img, (x, y, h, w))
 
 # Save modified dataset (with masks) as pickle file in cars_prep_path directory
