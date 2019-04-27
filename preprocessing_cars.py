@@ -23,8 +23,8 @@ height = width = 64
 channels = 3 #RGB
 range_x = np.arange(width)
 range_y = np.arange(height)
-range_h = np.arange(5, 20)
-range_w = np.arange(5, 20)
+range_h = np.arange(10, 20)
+range_w = np.arange(10, 20)
 
 
 # Open images as Numpy array
@@ -106,8 +106,8 @@ ws = np.random.choice(range_w, X_all.shape[0])
 
 
 #Gaussian mask
-xg = np.random.normal(16,10,X_all.shape[0]) #get the upper left corner
-yg = np.random.normal(48,10,X_all.shape[0])
+xg = np.random.normal(25,10,X_all.shape[0]) 
+yg = np.random.normal(25,10,X_all.shape[0])
 
 for img, x, y, h, w in zip(X_all, xg.astype(int), yg.astype(int), hs, ws):
     mask(img, (x, y, h, w))
