@@ -8,6 +8,8 @@ import pandas as pd
 import pickle
 import csv
 import os
+from skimage import measure
+from skimage import data, img_as_float
 from PIL import Image
 
 
@@ -120,3 +122,22 @@ with open(cars_prep_path + "cars_masks.pickle", "wb") as file:
 # Save original dataset (without masks) as pickle file in cars_prep_path directory
 with open(cars_prep_path + "cars_original.pickle", "wb") as file:
     pickle.dump(X_original, file)
+
+#SSIM and PSNR for baseline model
+s = []
+psnr=[]
+
+for i in range(len(X_original)):
+    s.append(measure.compare_ssim(X_original[i].transpose(1, 2, 0), X_all[i].transpose(1, 2, 0), multichannel=True))
+    #psnr.append(measure.compare_psnr(X_original[i], X_all[i]))
+    
+s_mean=np.mean(s)
+#psnr_mean=np.mean(psnr)
+
+print(s_mean)
+
+with plt.style.context('bmh'):
+    plt.hist(s,ec='black')
+    plt.xlabel('Distribution of the SSIM values on the training set')
+    plt.show()
+
